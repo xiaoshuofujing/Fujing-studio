@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>芙憬工作室</title>
+	<style>   
+    /* CSS Reset/優化 */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* 讓容器撐滿整個視窗 */
+        min-height: 100vh;
+        width: 100%;
+        
+        /* 設定背景圖片 */
+        background-image: url('./圖片/background-image.png'); 
+        background-size: cover; 
+        background-repeat: no-repeat;
+        background-position: center;
+        
+        /* 使用接近 Apple 的系統字體，確保簡潔清晰 */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* 導航列容器 - 極簡、固定在頂部 */
+    .apple-navbar {
+        /* 採用半透明深色背景，這是 Apple UI 的標誌之一 */
+        background-color: rgba(0, 0, 0, 0.8); 
+        
+        /* 固定在頂部 */
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; 
+        
+        /* 採用 Flexbox 排版 */
+        display: flex;
+        justify-content: center; /* 核心導航項目置中 */
+        align-items: center; 
+        height: 48px; /* 導航欄高度較低，營造精緻感 */
+    }
+
+    /* 導航列表 */
+    .nav-list {
+        list-style: none;
+        display: flex;
+        
+        /* 讓列表佔滿整個寬度，方便後續的左右兩側項目定位 */
+        width: 100%; 
+        max-width: 1000px; /* 限制內容最大寬度，避免過寬 */
+        padding: 0 20px;
+    }
+
+    /* 導航項目 - 隱藏原始的標題/品牌名稱，因為 Apple 導航欄不顯示主標題 */
+    .nav-brand-placeholder {
+        /* 為了將中心項目推到絕對置中，這個佔位符號 (Placeholder) 必須存在 */
+        visibility: hidden;
+        margin: 0 10px;
+        min-width: 40px; /* 確保它佔據一定的空間 */
+    }
+    
+    /* 連結本身樣式 */
+    .nav-list a, .nav-list summary {
+        color: #F5F5F7; /* 淺灰色文字 */
+        text-decoration: none;
+        font-size: 12px; /* 字體非常小，營造精緻感 */
+        font-weight: 400; /* 一般字重 */
+        padding: 0 10px; 
+        display: block;
+        height: 48px; /* 確保點擊區域與導航欄高度一致 */
+        line-height: 48px; /* 垂直置中文字 */
+        transition: color 0.3s; /* 懸停平滑過渡 */
+    }
+
+    /* 連結懸停效果 */
+    .nav-list a:hover, .nav-list summary:hover {
+        color: #FFFFFF; /* 懸停時變純白 */
+        opacity: 0.9;
+    }
+
+    /* 左右兩側的特殊項目：品牌、搜索和購物車 */
+    .nav-item-special {
+        flex-shrink: 0; /* 防止被縮小 */
+    }
+
+    /* 品牌標誌 (芙憬工作室) - 放在最左邊 */
+    .nav-brand {
+        font-size: 16px; /* 略大於連結字體 */
+        font-weight: 600; /* 加粗 */
+        color: #F5F5F7;
+        padding-left: 0;
+    }
+
+    /* 購物車/搜索模擬 - 放在最右邊 */
+    .nav-item-right {
+        margin-left: auto; /* 將此項目推到最右側 */
+        color: #F5F5F7;
+        padding-right: 0;
+        font-size: 14px;
+        line-height: 48px;
+    }
+
+    /* 主要內容區域 (用於推開導航欄) */
+    .content {
+        padding-top: 80px; 
+        color: white; 
+        text-align: center;
+    }
+
+    .content h1 {
+        color: #BD8FDF;
+        margin-bottom: 20px;
+        font-size: 3em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+    }
+
+    /* 作品集下拉選單樣式調整 (更極簡) */
+    .nav-list details {
+        position: relative;
+    }
+
+    .nav-list details summary {
+        list-style: none; /* 移除 summary 預設的小箭頭 */
+    }
+    
+    .nav-list details ol {
+        list-style: none;
+        position: absolute;
+        top: 48px; /* 緊貼導航欄下方 */
+        left: 50%;
+        transform: translateX(-50%); /* 確保下拉選單在 summary 處水平置中 */
+        min-width: 150px;
+        background-color: rgba(0, 0, 0, 0.95); /* 深色背景 */
+        border-radius: 8px; /* 圓角比上次更明顯 */
+        padding: 10px 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 更明顯的陰影 */
+        text-align: left;
+    }
+    
+    .nav-list details li {
+        margin: 0;
+    }
+
+    .nav-list details a {
+        padding: 6px 15px; /* 下拉選單內的連結更緊湊 */
+        line-height: normal; /* 取消 line-height 讓它看起來像個選單 */
+        height: auto;
+        font-size: 14px;
+        color: #DDDDDD;
+    }
+
+	</style>
+</head>
+<body>
+
+    <nav class="apple-navbar">
+        <ul class="nav-list">
+            <li class="nav-item-special">
+                <a href="#" class="nav-brand" title="芙憬工作室首頁">芙憬</a> 
+            </li>
+            
+            <li><a href="https://www.facebook.com/profile.php?id=61582508597055&locale=zh_TW">Facebook</a></li>
+            <li><a href="https://www.youtube.com/channel/UCvO3T2AUpCCSPCUrr3-m91w">Youtube</a></li>
+            <li><a href="https://www.instagram.com/fujing.murong/">Instagram</a></li>
+            
+            <li>
+                <details>
+                    <summary>作品集</summary>
+                    <ol>
+                        <li><a href="https://drive.google.com/drive/folders/1QgUWTDL_cHIwJvHTF1N_zB-3b9Y-UqND?usp=sharing">那年盛夏的故事</a></li>
+                    </ol>
+                </details>
+            </li>
+
+            <li class="nav-item-special nav-item-right">
+                <a href="#" title="搜索 (Search)">🔍</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="content">
+        <h1>歡迎來到芙憬工作室</h1>
+        <p></p>
+    </div>
+
+</body>
+</html>
