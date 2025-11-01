@@ -2,9 +2,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>芙憬工作室</title>
+	<title>芙憬工作室 - 粉藍毛玻璃效果</title>
 	<style>   
-    /* CSS Reset/優化 */
+    /* CSS Reset/優化 - 確保盒子模型計算更直觀 */
     * {
         box-sizing: border-box;
         margin: 0;
@@ -16,142 +16,145 @@
         min-height: 100vh;
         width: 100%;
         
-        /* 設定背景圖片 */
-        background-image: url('./圖片/background-image.png'); 
+        /* === 背景漸變調整：粉藍色漸變 === */
+        background: linear-gradient(135deg, #FFD1DC 0%, #ADD8E6 100%); 
         background-size: cover; 
         background-repeat: no-repeat;
         background-position: center;
         
-        /* 使用接近 Apple 的系統字體，確保簡潔清晰 */
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* === Mac 系統字體調整 === */
+        /* 優先使用 San Francisco (Mac/iOS 系統字體) */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     }
 
-    /* 導航列容器 - 極簡、固定在頂部 */
+    /* 導航列容器 - 極簡、固定在頂部，並添加毛玻璃效果 */
     .apple-navbar {
-        /* 採用半透明深色背景，這是 Apple UI 的標誌之一 */
-        background-color: rgba(0, 0, 0, 0.8); 
+        /* 半透明白色背景 */
+        background-color: rgba(255, 255, 255, 0.4); 
+        /* === 毛玻璃效果 === */
+        backdrop-filter: blur(10px); 
+        -webkit-backdrop-filter: blur(10px); 
         
-        /* 固定在頂部 */
         position: fixed; 
         top: 0;
         left: 0;
         width: 100%;
         z-index: 1000; 
         
-        /* 採用 Flexbox 排版 */
         display: flex;
-        justify-content: center; /* 核心導航項目置中 */
+        justify-content: center; /* 置中導航內容 */
         align-items: center; 
-        height: 48px; /* 導航欄高度較低，營造精緻感 */
+        height: 48px; 
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); 
     }
 
     /* 導航列表 */
     .nav-list {
         list-style: none;
         display: flex;
-        
-        /* 讓列表佔滿整個寬度，方便後續的左右兩側項目定位 */
+        justify-content: space-between; /* 品牌置左，連結群組置右 */
         width: 100%; 
-        max-width: 1000px; /* 限制內容最大寬度，避免過寬 */
+        max-width: 1000px; /* 限制內容最大寬度 */
         padding: 0 20px;
+		color: #94B5E8;
     }
 
-    /* 導航項目 - 隱藏原始的標題/品牌名稱，因為 Apple 導航欄不顯示主標題 */
-    .nav-brand-placeholder {
-        /* 為了將中心項目推到絕對置中，這個佔位符號 (Placeholder) 必須存在 */
-        visibility: hidden;
-        margin: 0 10px;
-        min-width: 40px; /* 確保它佔據一定的空間 */
+    /* 導航左側 (品牌) */
+    .nav-left {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 導航右側 (連結) */
+    .nav-right {
+        list-style: none;
+        display: flex;
+        align-items: center;
     }
     
     /* 連結本身樣式 */
-    .nav-list a, .nav-list summary {
-        color: #F5F5F7; /* 淺灰色文字 */
+    .nav-right a, .nav-right summary {
+        color: #94B5E8; 
         text-decoration: none;
-        font-size: 12px; /* 字體非常小，營造精緻感 */
-        font-weight: 400; /* 一般字重 */
+        font-size: 12px; /* 極簡小字體 */
+        font-weight: 400; 
         padding: 0 10px; 
         display: block;
-        height: 48px; /* 確保點擊區域與導航欄高度一致 */
-        line-height: 48px; /* 垂直置中文字 */
-        transition: color 0.3s; /* 懸停平滑過渡 */
+        height: 48px; 
+        line-height: 48px; /* 垂直置中 */
+        transition: color 0.3s; 
     }
 
     /* 連結懸停效果 */
-    .nav-list a:hover, .nav-list summary:hover {
-        color: #FFFFFF; /* 懸停時變純白 */
-        opacity: 0.9;
+    .nav-right a:hover, .nav-right summary:hover {
+        color: #000000; 
+        opacity: 0.8;
     }
 
-    /* 左右兩側的特殊項目：品牌、搜索和購物車 */
-    .nav-item-special {
-        flex-shrink: 0; /* 防止被縮小 */
-    }
-
-    /* 品牌標誌 (芙憬工作室) - 放在最左邊 */
+    /* 品牌標誌 */
     .nav-brand {
-        font-size: 16px; /* 略大於連結字體 */
-        font-weight: 600; /* 加粗 */
-        color: #F5F5F7;
-        padding-left: 0;
-    }
-
-    /* 購物車/搜索模擬 - 放在最右邊 */
-    .nav-item-right {
-        margin-left: auto; /* 將此項目推到最右側 */
-        color: #F5F5F7;
-        padding-right: 0;
-        font-size: 14px;
-        line-height: 48px;
+        font-size: 20px; 
+        font-weight: 600; 
+        color: #94B5E8; 
     }
 
     /* 主要內容區域 (用於推開導航欄) */
     .content {
         padding-top: 80px; 
-        color: white; 
+        color: #94B5E8; 
         text-align: center;
     }
 
     .content h1 {
-        color: #BD8FDF;
+        /* === H1 字體顏色修改 === */
+        color: #A5B6E7; /* 柔和的淺藍色 */
         margin-bottom: 20px;
         font-size: 3em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); 
     }
 
-    /* 作品集下拉選單樣式調整 (更極簡) */
-    .nav-list details {
+    /* 作品集下拉選單樣式 */
+    .nav-right details {
         position: relative;
     }
 
-    .nav-list details summary {
-        list-style: none; /* 移除 summary 預設的小箭頭 */
+    .nav-right details summary {
+        list-style: none; /* 移除預設箭頭 */
     }
     
-    .nav-list details ol {
+    .nav-right details ol {
         list-style: none;
         position: absolute;
-        top: 48px; /* 緊貼導航欄下方 */
+        top: 48px; 
         left: 50%;
-        transform: translateX(-50%); /* 確保下拉選單在 summary 處水平置中 */
+        transform: translateX(-50%); 
         min-width: 150px;
-        background-color: rgba(0, 0, 0, 0.95); /* 深色背景 */
-        border-radius: 8px; /* 圓角比上次更明顯 */
+        
+        /* 下拉選單毛玻璃效果 */
+        background-color: rgba(255, 255, 255, 0.8); 
+        backdrop-filter: blur(15px); 
+        -webkit-backdrop-filter: blur(15px); 
+        
+        border-radius: 8px; 
         padding: 10px 0;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 更明顯的陰影 */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); 
         text-align: left;
     }
     
-    .nav-list details li {
+    .nav-right details li {
         margin: 0;
     }
 
-    .nav-list details a {
-        padding: 6px 15px; /* 下拉選單內的連結更緊湊 */
-        line-height: normal; /* 取消 line-height 讓它看起來像個選單 */
+    .nav-right details a {
+        padding: 6px 15px; 
+        line-height: normal; 
         height: auto;
         font-size: 14px;
-        color: #DDDDDD;
+        color: #94B5E8; 
+    }
+    .nav-right details a:hover {
+        color: #94B5E8;
+        background-color: rgba(0, 0, 0, 0.05); 
     }
 
 	</style>
@@ -160,32 +163,29 @@
 
     <nav class="apple-navbar">
         <ul class="nav-list">
-            <li class="nav-item-special">
-                <a href="#" class="nav-brand" title="芙憬工作室首頁">芙憬</a> 
+            <li class="nav-left">
+                <a href="#" class="nav-brand" title="芙憬工作室首頁">芙憬工作室</a> 
             </li>
             
-            <li><a href="https://www.facebook.com/profile.php?id=61582508597055&locale=zh_TW">Facebook</a></li>
-            <li><a href="https://www.youtube.com/channel/UCvO3T2AUpCCSPCUrr3-m91w">Youtube</a></li>
-            <li><a href="https://www.instagram.com/fujing.murong/">Instagram</a></li>
-            
-            <li>
-                <details>
-                    <summary>作品集</summary>
-                    <ol>
-                        <li><a href="https://drive.google.com/drive/folders/1QgUWTDL_cHIwJvHTF1N_zB-3b9Y-UqND?usp=sharing">那年盛夏的故事</a></li>
-                    </ol>
-                </details>
-            </li>
-
-            <li class="nav-item-special nav-item-right">
-                <a href="#" title="搜索 (Search)">🔍</a>
-            </li>
+            <ul class="nav-right">
+                <li><a href="https://www.facebook.com/profile.php?id=61582508597055&locale=zh_TW">Facebook</a></li>
+                <li><a href="https://www.youtube.com/channel/UCvO3T2AUpCCSPCUrr3-m91w">Youtube</a></li>
+                <li><a href="https://www.instagram.com/fujing.murong/">Instagram</a></li>
+                
+                <li>
+                    <details>
+                        <summary>作品集</summary>
+                        <ol>
+                            <li><a href="https://drive.google.com/drive/folders/1QgUWTDL_cHIwJvHTF1N_zB-3b9Y-UqND?usp=sharing">那年盛夏的故事</a></li>
+                        </ol>
+                    </details>
+                </li>
+            </ul>
         </ul>
     </nav>
     
     <div class="content">
         <h1>歡迎來到芙憬工作室</h1>
-        <p></p>
     </div>
 
 </body>
